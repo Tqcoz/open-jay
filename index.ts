@@ -1,7 +1,7 @@
+require('./database')
 // Imports
 import * as express from 'express';
 require('pug')
-const api = require('./routes/api');
 // Initializations 
 const app = express();
 const http = require('http').Server(app);
@@ -15,9 +15,15 @@ const server = http.listen(3000, function() {
 });
 // Express Middlewares
 app.set('view engine', 'pug')
-app.use(express.json());
-app.use('/api', api);
 app.use(express.urlencoded({ extended: false }));
+app.use(express.json()); 
+const api = require('./routes/api');
+var bodyParser = require('body-parser')
+app.use(bodyParser.urlencoded({ extended: false }))
+
+// parse application/json
+app.use(bodyParser.json())
+app.use('/api', api);
 app.get('/', (req, res) => {
   res.render('index', {
     colors: require('colors')
