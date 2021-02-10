@@ -5,7 +5,8 @@ const model = mongoose.model('User', new mongoose.Schema({
     discriminator: Number,
     avatar: String,
     friends: Array,
-    guilds: Array
+    guilds: Array,
+    password: String
 }))
 export = {
     getUser: async function (id: Number) {
