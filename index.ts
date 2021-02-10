@@ -1,10 +1,12 @@
 // Imports
 
 import * as express from 'express';
-import socket from 'socket.io';
-
+import * as socket from 'socket.io';
+const io = new socket.Server().attach(2000)
 // Route Imports
-
+io.on('connection', (s) => {
+  s.send('test')
+})
 import api from './routes/api';
 
 
