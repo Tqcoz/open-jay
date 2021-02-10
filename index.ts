@@ -1,8 +1,8 @@
 require('./database')
-const User = require('./database/User')
 // Imports
 import * as express from 'express';
 require('pug')
+const User = require('./database/User')
 // Initializations 
 const app = express();
 const http = require('http').Server(app);
