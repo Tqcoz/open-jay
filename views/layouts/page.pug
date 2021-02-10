@@ -1,0 +1,17 @@
+<!DOCTYPE html>
+html(lang="en")
+    head
+        meta(charset="UTF-8")
+        //- link(rel="stylesheet", href=`${url}`)
+        meta(name="viewport", content="width=device-width, initial-scale=1.0")
+        title O-Jay
+        script(src="http://localhost:3000/socket.io/socket.io.js")
+        link(rel="stylesheet", href="http://localhost/api/styles.css")
+    body
+        block body
+    footer 
+        script.
+            const socket = io("http://localhost:3000");
+            socket.on('connect', function(io){
+                console.log(`#{colors.red("[𝚘-𝙹𝚊𝚢]")} Connected to Socket`)
+            })
