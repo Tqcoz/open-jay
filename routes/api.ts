@@ -25,19 +25,33 @@ Router.post('/join', async (req, res) => {
     })
   }
 })
+
 Router.post('/login', async (req, res) => {
-  let tryUser = await User.model.findOne({ email: req.body.email }).catch(() => { });
+  var beq = {
+    body: {
+      email: req.body[0],
+      password: req.body[1],
+    }
+  }
+  let tryUser = await User.model.findOne({ email: beq.body.email }).catch(() => { });
   if (!tryUser) {
     res.send({
       status: 401,
       error: 'Could not fetch User with the details'
     })
   } else {
-    console.log('test');
-    console.log(await bcrypt.compare(req.body.password, tryUser.password));
     
-    if (await bcrypt.compare(req.body.password, tryUser.password)) {
-      console.log(tryUser);
+    if (await bcrypt.compare(beq.body.password, tryUser.password)) {
+      res.send({
+        status: 200,
+      })
+      let token : String = crypto.randomBytes(32).toString('hex');
+      await tryUser.updateOne({
+        token
+      })
+      console.log('Saved to Session');
+      
+      req!.session[0] = token;
       
     } else {
       res.send({
@@ -46,7 +60,6 @@ Router.post('/login', async (req, res) => {
       })
     }
   } 
-  console.log(req.body);
   
   
 })

@@ -7,9 +7,27 @@ const model = mongoose.model('User', new mongoose.Schema({
     friends: Array,
     email: String,
     guilds: Array,
-    password: String
+    password: String,
+    token: String
 }))
+interface User{
+    id?: string,
+    username?: string,
+    discriminator?: string,
+    avatar?: string,
+    email?: string,
+    password?: string,
+    token?: string,
+    friends?: Array<this>,
+    guilds?: Array<string>
+}
 export = {
+    Class: class UserClass{
+        user: User
+        constructor(u: User) {
+            this.user = u;
+        }
+    },
     getUser: async function (id: String) {
         let User = await model.findOne({id}).catch(()=>{
             return;
