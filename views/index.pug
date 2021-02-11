@@ -7,7 +7,7 @@ block body
 
             #signup(style="background-color: #e94560;padding: 10px 75px;padding-bottom: 30px;border-radius: 30px;flex-direction: column !important;display: flex;")
                 button(onclick="login()",style="background-color: #0f3460;margin-top: 10px;border-radius:5px;width: 100%;border: none;padding:15px 20px;color: white;font-weight:700") Login
-                button(style="background-color: #0f3460;margin-top: 10px;border-radius:5px;width: 100%;border: none;padding:15px 20px;color: white;font-weight:700") Register
+                button(onclick="register()",style="background-color: #0f3460;margin-top: 10px;border-radius:5px;width: 100%;border: none;padding:15px 20px;color: white;font-weight:700") Register
         script.
             function login(){
                 Swal.mixin({
@@ -17,7 +17,6 @@ block body
                     progressSteps: ['1', '2']
                     }).queue([
                     {
-                        html:'<form>',
                         title: 'Login',
                         input: 'email',
                         text: 'Email'
@@ -25,7 +24,6 @@ block body
                     {
                         title: 'Login',
                         input: 'password',
-                        html:'</form>',
                         text: 'Password',
                         confirmButtonText: 'Login',
                         showLoaderOnConfirm: true,
@@ -40,9 +38,66 @@ block body
                             },
                             body: JSON.stringify(result.value)
                         }).then((e)=>{
-                         e.json()
-                        }).then(e =>{
-                            console.log(e)
+                         e.json().then(b =>{
+                            if(b.status !== 200){
+                                Swal.fire(
+                                    {
+                                    title: 'Error',
+                                    text: b.error,
+                                    icon: 'error'
+                                    }
+                                )
+                            }
+                         })
+                        })
+                    }
+                })
+            }
+            function register(){
+                Swal.mixin({
+                    input: 'text',
+                    confirmButtonText: 'Next',
+                    showCancelButton: true,
+                    progressSteps: ['1', '2', '3']
+                    }).queue([
+                    {
+                        title: 'Register',
+                        input: 'email',
+                        text: 'Email'
+                    },
+                    {
+                        input: 'text',
+                        title: 'Register',
+                        text: 'Username'
+                    },
+                    {
+                        title: 'Register',
+                        input: 'password',
+                        text: 'Password',
+                        confirmButtonText: 'Register',
+                        showLoaderOnConfirm: true,
+                    },
+                    ]).then((result) => {
+                    if (result.value) {
+                        console.log(result.value)
+                        fetch('http://localhost/api/join',{
+                            method: 'POST',
+                            headers:{
+                                "Content-Type": 'application/json'
+                            },
+                            body: JSON.stringify(result.value)
+                        }).then((e)=>{
+                         e.json().then(b =>{
+                            if(b.status !== 200){
+                                Swal.fire(
+                                    {
+                                    title: 'Error',
+                                    text: b.error,
+                                    icon: 'error'
+                                    }
+                                )
+                            }
+                         })
                         })
                     }
                 })
