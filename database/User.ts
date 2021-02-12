@@ -1,5 +1,7 @@
+import { Schema, Model, model as mModel } from "mongoose"
+import { User } from '../interfaces/User';
 const mongoose = require('mongoose')
-const model = mongoose.model('User', new mongoose.Schema({
+const model:Model<User> = mModel('User', new Schema({
     id: String,
     username: String,
     discriminator: Number,
@@ -10,34 +12,16 @@ const model = mongoose.model('User', new mongoose.Schema({
     password: String,
     token: String
 }))
-interface User{
-    id?: string,
-    username?: string,
-    discriminator?: string,
-    avatar?: string,
-    email?: string,
-    password?: string,
-    token?: string,
-    friends?: Array<this>,
-    guilds?: Array<string>
-}
 export = {
     Class: class UserClass{
+        // Will be useful later on
         user: User
         constructor(u: User) {
             this.user = u;
         }
     },
-    getUser: async function (id: String) {
-        let User = await model.findOne({id}).catch(()=>{
-            return;
-        });
-        User.friends = []
-        User.friends.forEach(async (friendId: { "": String; }) => {
-            User.friends.push(await model.findOne({id: friendId}))
-        });
-        return User;
-    
+    getUserByToken: async function (token: string) {
+        return await model.findOne({token}).catch(() => {})
     },
     model
 

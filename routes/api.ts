@@ -51,8 +51,8 @@ Router.post('/login', async (req, res) => {
       })
       console.log('Saved to Session');
       
-      req!.session[0] = token;
-      
+      req!.session.token = token;
+      req.session.save(function(){})
     } else {
       res.send({
         status: 401,
