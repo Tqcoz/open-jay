@@ -1,4 +1,4 @@
-extends layouts/page.pug
+extends layouts/basic.pug
 block body
     if user == null
         #main(style="display: flex;justify-content:center;align-items:center;overflow:hidden;height: 100vh;flex-direction:column;gap: 5px;")
@@ -48,6 +48,9 @@ block body
                                     }
                                 )
                             }else{
+                                //- console.log(b)
+                                window.location.href = b.url
+
                                 Swal.fire(
                                     {
                                     title: 'Success',
@@ -55,7 +58,6 @@ block body
                                     icon: 'success'
                                     }
                                 )
-                                win.location.href = b.url
                             }
                          })
                         })

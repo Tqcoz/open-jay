@@ -5,6 +5,7 @@ export interface Guild{
   name: String,
   members:  User,
   channels: Channel,
-  roles: Array<Role>
+  roles: Array<Role>,
+  invite: Array<object>
 
 }

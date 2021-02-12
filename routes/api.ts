@@ -42,17 +42,19 @@ Router.post('/login', async (req, res) => {
   } else {
     
     if (await bcrypt.compare(beq.body.password, tryUser.password)) {
-      res.send({
-        status: 200,
-      })
       let token : String = crypto.randomBytes(32).toString('hex');
+      
       await tryUser.updateOne({
         token
       })
       console.log('Saved to Session');
       
       req!.session.token = token;
-      req.session.save(function(){})
+      req.session.save(function () { }) // Requires Callback
+      res.send({
+        status: 200,
+        url: `http://localhost/?token=${token}`
+      })
     } else {
       res.send({
         status: 401,

@@ -1,9 +1,13 @@
 @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
 body{
-    background-color: #16213e;
+    background-color: #2A2A52;
     overflow: hidden;
     font-family: 'Roboto', sans-serif;
+    margin: 0;
+}
+div, button, a{
+    box-sizing: border-box;
 }
 input{
     padding: 5px !important;
@@ -17,4 +21,141 @@ button{
 button:hover{
     /* transform: scale(1.02); */
     outline: 1px solid #869ad1;
+}
+.line-separator{
+    height:2em !important;
+    width: 1px !important;
+    margin: 0px 4px;
+    border-radius: 10px;
+    transform: translateY(50%);
+    background:#5b6672 !important;
+}
+#home-button{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+.horizontal-line-separator{
+    height:1px !important;
+    width: 2em !important;
+    margin: 0;
+    border-radius: 10px;
+    background:#5b6672 !important;
+}
+#guild-button{
+    display: none;
+}
+a{
+    text-decoration: none;
+    color:inherit;
+}
+.home{
+    background-color: #49526b;
+    width: 2.5em;
+    height: 2.5em;
+    display: flex;
+    text-align: center;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 15px;
+    border-radius: 50%;
+    transition: .3s;
+}
+.home:hover{
+    background-color: #3d4a6d;
+}
+#direct-messages{
+    background-color: #20203D;
+    width: 13%;
+    height: 100vh;
+    display: inline;
+    box-sizing: border-box;
+    border-left: 1px solid #535e7e;
+    border-right: 1px solid #535e7e;
+    float: left;
+}
+#direct-messages h2{
+    color: whitesmoke;
+    margin-top: 1em;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+}
+#top-bar{
+    position: fixed;
+    right: 0;
+    float:right !important;
+    /* border-bottom: 1px solid #535e7e; */
+    box-sizing: border-box;
+    padding: .3em .8em;
+    display: flex;
+    justify-content: flex-start;
+    flex-direction: row;
+    gap: 1em;
+    color: rgb(136, 158, 161);
+    box-sizing: border-box;
+    background-color: #2A2A52;
+    border-bottom: 1px solid#535e7e;
+    width: 81%;
+}
+#top-bar kbd{
+    background-color: #20203D;
+}
+#top-bar a, #top-bar h3{
+    font-weight: 400;
+    background-color: #2c2c5a;
+    padding: 3px;
+    border-radius: 5px;
+
+}
+#top-bar h3, a:hover{
+    cursor: pointer;
+}
+
+@media(max-width: 500px){
+    aside#guilds-bar{
+        display: none !important;
+    }
+    #direct-messages{
+        display: none;
+    }
+    #guild-button{
+        display: block;
+    }
+    #top-bar{
+        width: 100%;
+        justify-content: center;
+    }
+}
+aside#guilds-bar{
+    background-color: #3b445c;
+    box-sizing: border-box;
+    width: 6%;
+    display: inline;
+    float: left;
+    height: 100vh;
+    color: whitesmoke;
+    font-size: 150% !important;
+    padding-top: 20px;
+}
+.guilds{
+    display: flex;
+    justify-content: center;
+}
+.add-server{
+    background-color: #48585f;
+    display: flex;
+    justify-content: center;
+    text-align: center;
+    align-items: center;
+    width: 2em;
+    margin: 10px 0px !important;
+    border-radius: 50%;
+    height: 2em;
+    transition: .1s linear;
+}
+.add-server:hover{
+    background-color: #516d79;
+
 }

@@ -50,10 +50,15 @@ app.use(session({
   cookie: { secure: false, httpOnly: true, maxAge: 1000 * 60 * 60 * 24 * 30 * 3 }
 }))
 app.use(async function (req, res, next) {
-  (req.session.token == undefined) ? null : req.user = await User.getUserByToken(req.session.token)
+  (req.session.token == undefined) ? null : req.user = res.locals.user = await User.getUserByToken(req.session.token);
   next()
 })
 app.use('/api', api);
+app.get('/@me', (req, res) => {
+  res.render('user-dashboard', {
+    colors: require('colors')
+  })
+})
 app.get('/', (req, res) => {
   console.log(req.session);
   console.log(req.user);
