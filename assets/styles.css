@@ -30,6 +30,14 @@ button:hover{
     transform: translateY(50%);
     background:#5b6672 !important;
 }
+form button{
+    background-color: #535e7e;
+    color: whitesmoke;
+    outline: none;
+    border: none;
+    padding: 1em 5em;
+    margin: 0;
+}
 #home-button{
     display: flex;
     justify-content: center;
@@ -40,15 +48,71 @@ button:hover{
     height:1px !important;
     width: 2em !important;
     margin: 0;
-    border-radius: 10px;
+    border-radius: 5px !important;
     background:#5b6672 !important;
+    box-sizing: border-box;
+}
+#input-email:focus, #input-password:focus{
+    transform: scale(1.04);
+    filter: drop-shadow(0px 0px 2px rgba(50, 49, 56, 0.205));
+    background-color: rgb(245, 245, 245);
+}
+#input-email, #input-password{
+    background-color: whitesmoke;
+    width: 12rem;
+    margin-bottom: 15px !important;
+    margin-left: -2em;
+    margin-right: -2em;
+    padding: 5px !important;
+    border-bottom: 2px solid #383883;
+    content: 'Email';
+    outline: none;
+    color: rgb(35, 35, 37);
+}
+form label{
+    box-sizing: border-box;
+    display: flex;
+    align-self: flex-start;
+    float: left !important;
+    flex: none;
+    text-align: left !important;
+    text-indent: 0%;
+    padding: 0;
+    margin-left: -1em;
 }
 #guild-button{
     display: none;
 }
+@media(max-width: 600px){
+    #top-bar{
+        min-width: 65% !important;
+        box-sizing: border-box;
+        position: fixed !important;
+        float: right;
+        margin: 0;
+        right: 0;
+    }
+    #direct-messages{
+        min-width: 25% !important;
+        max-width: 25% !important;
+    }
+    #guilds-bar{
+        box-sizing: content-box;
+        box-decoration-break: slice;
+        contain: strict;
+        min-width: 10% !important;
+        max-width: 10% !important;
+    }
+
+}
 a{
     text-decoration: none;
     color:inherit;
+    text-align: center;
+    transition: .3s linear;
+}
+#signup a:hover{
+    background: #383883 !important;
 }
 .home{
     background-color: #49526b;
@@ -67,7 +131,7 @@ a{
 }
 #direct-messages{
     background-color: #20203D;
-    width: 13%;
+    min-width: 15%;
     height: 100vh;
     display: inline;
     box-sizing: border-box;
@@ -75,12 +139,47 @@ a{
     border-right: 1px solid #535e7e;
     float: left;
 }
-#direct-messages h2{
+#top-bar h3 > span{
+    user-select: none;
+}
+#direct-messages h2, #direct-messages .add-friend{
     color: whitesmoke;
-    margin-top: 1em;
     padding: 0;
     display: flex;
     justify-content: center;
+}
+#lr-msg{
+    color: white;
+}
+#lr-msg a{
+    font-weight: 600;
+    letter-spacing: 1.2px;
+}
+.modal {
+    display: none;
+}
+
+.modal.is-open {
+    display: block;
+}
+      
+#findDm{
+    background-color: #16213e;
+    box-sizing: content-box;
+    color:#6a768a;
+    border-bottom: 1px solid #1b284d;
+    border-radius: 20px;
+    text-size-adjust:initial;
+    text-align: center;
+    text-anchor:middle;
+    text-overflow:clip !important;
+    padding: 5px 10px;
+    transition: .5s linear;
+}
+#findDm:hover{
+    background-color: #111b36;
+    cursor: pointer;
+    user-select: none;
 }
 #top-bar{
     position: fixed;
@@ -97,10 +196,52 @@ a{
     box-sizing: border-box;
     background-color: #2A2A52;
     border-bottom: 1px solid#535e7e;
-    width: 81%;
+    min-width: 79%;
+    max-width: 79%;
 }
-#top-bar kbd{
+a#logout{
+    display: flex;
+    float: right;
+    align-items: center;
+    align-self: center;
+    padding: 10px !important;
+    justify-content: center;
+}
+a#logout:hover{
+    background-color: #383883;
+}
+.add-friend{
+    color: rgb(255, 255, 255);
+    background-color: rgb(59, 155, 147) !important;
+    display: inline;
+    box-sizing: border-box;
+    padding: 3px;
+    font-weight: 700;
+    transition: .3s linear;
+    flex-direction: row;
+}
+.add-friend:hover{
+    cursor: pointer;
+    background-color: rgb(37, 168, 157) !important;
+}
+#friend-label{
+    padding-bottom: .8em !important;
+    margin: 0;
+}
+#friend-label::after{
+    background-color: #5050a7;
+    width: 5em;
+    height: 2px;
+    position: absolute;
+    top: 10px;
+}
+#top-bar span#user-details{
+    transition: .3s ease-in-out;
     background-color: #20203D;
+    font-size: 18px;
+}
+#top-bar span#user-details:hover{
+    background-color: #323283;
 }
 #top-bar a, #top-bar h3{
     font-weight: 400;
@@ -109,8 +250,26 @@ a{
     border-radius: 5px;
 
 }
-#top-bar h3, a:hover{
+#top-bar h3 kbd:hover{
     cursor: pointer;
+}
+@keyframes copied{
+    100%{
+        transform: translateY(-200%);
+        opacity: 0;
+    }
+
+}
+span#copied::after{
+    content: 'Copied';
+    position: absolute;
+    padding: 2px 3px;
+    transition: .2s linear;
+    color: white;
+    border-radius: 5px;
+    animation: copied .9s;
+    background-color: rgb(108, 221, 183);
+    
 }
 
 @media(max-width: 500px){
@@ -124,14 +283,14 @@ a{
         display: block;
     }
     #top-bar{
-        width: 100%;
+        min-width: 100%;
         justify-content: center;
     }
 }
 aside#guilds-bar{
     background-color: #3b445c;
     box-sizing: border-box;
-    width: 6%;
+    min-width: 6%;
     display: inline;
     float: left;
     height: 100vh;

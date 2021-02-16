@@ -1,0 +1,18 @@
+extends layouts/basic.pug
+block body
+    #main(style="display: flex;justify-content:center;align-items:center;overflow:hidden;height: 100vh;flex-direction:column;gap: 5px;")
+        h1(style="color: white;font-size:50px;margin: 5px;transform: scale(2)") o-Jay
+        h3(style="color: whitesmoke;font-size:25px;") Open Source Messaging App
+        form#registerForm(,style="background-color: white;display: flex;padding:0em 8em;flex-direction: column;align-items: center;justify-content:center;border-radius: 16px;padding-bottom:2.3em !important;")
+            h1(style="text-align: center;padding-top:1.2em;") Register
+            label Username
+            input#input-email(type="fname", name="username", autocomplete="on")
+            label Email
+            input#input-email(type="email", name="email", autocomplete="on")
+            label Password
+            input#input-password(type="password", name="password", autocomplete="on")
+            button#login(type="submit") Register
+        p#lr-msg Already have an account? <a href="/login">Login</a>
+
+    script(src="/api/login-register.js")
+    

@@ -1,20 +1,16 @@
-<!DOCTYPE html>
 html(lang="en")
     head
+        script(src="//cdnjs.cloudflare.com/ajax/libs/validate.js/0.13.1/validate.min.js")
         meta(charset="UTF-8")
-        //- link(rel="stylesheet", href=`${url}`)
         meta(name="viewport", content="width=device-width, initial-scale=1.0")
         title O-Jay
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.15.2/css/all.css" integrity="sha384-vSIIfh2YWi9wW0r9iZe7RJPrKwp6bG+s9QZMoITbCckVJqGCCRhc+ccxNcdpHuYu" crossorigin="anonymous">
-        script(src="http://localhost:3000/socket.io/socket.io.js")
+        script(src="http://localhost/socket.io/socket.io.js")
         script(src="https://cdn.jsdelivr.net/npm/sweetalert2@10/dist/sweetalert2.min.js")
         link(rel="stylesheet", href="http://localhost/api/styles.css")
         link(rel="stylesheet", href="http://localhost/api/modalTheme.css")
     body
         block body
     footer 
-        script.
-            const socket = io("http://localhost:3000");
-            socket.on('connect', function(io){
-                console.log(`#{colors.red("[𝚘-𝙹𝚊𝚢]")} Connected to Socket`)
-            })
+        script(src="/api/socket.js")
+        script(src="/api/userScripts.js")

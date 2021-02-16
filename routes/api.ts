@@ -2,30 +2,41 @@ import * as express from 'express'
 import * as crypto from 'crypto'
 import * as bcrypt from 'bcrypt'
 import { Router as r } from 'express'
-const User = require('../database/User')
+const User = require('../database/Models/User')
 var Router = r();
 const salt = "$2b$10$EJQ31SrNKhVIYQ5I/SORI.";
-Router.use(express.json())
-Router.use(express.urlencoded({extended: false}))
 Router.post('/join', async (req, res) => {
+  console.log(req.body);
   // Prototype, we're going to be making this more secure soon
-  let tryUser = await User.model.findOne({ email: req.body.email }).catch(() => { })
-  if (tryUser) {
+  try {
+    let tryUser = await User.model.findOne({ email: req.body[1] }).catch(() => { })
+    if (tryUser) {
+      res.send({
+        status: 401,
+        error: 'User with Email already exists'
+      })
+    } else {
+      User.model.create({
+        id: await crypto.randomBytes(16).toString('hex'),
+        username: req.body[0].replace('#', ''),
+        email: req.body[1],
+        password: (await bcrypt.hash(req.body[2], salt)).toString(),
+        discriminator: await crypto.randomInt(9999).toString().padStart(4, '0')
+      })
+      res.send({
+        status: 200, 
+        url: `http://localhost/login`
+      })
+    }
+  } catch (error) {
+    console.log(error);
+    
     res.send({
       status: 401,
-      error: 'User with Email already exists'
-    })
-  } else {
-    User.model.create({
-      id: await crypto.randomBytes(16).toString('hex'),
-      username: req.body.username,
-      email: req.body.email,
-      password: (await bcrypt.hash(req.body.password, salt)).toString(),
-      discriminator: await crypto.randomInt(9999).toString().padStart(4, '0')
+      error: 'Error Occured'
     })
   }
 })
-
 Router.post('/login', async (req, res) => {
   var beq = {
     body: {
@@ -53,7 +64,7 @@ Router.post('/login', async (req, res) => {
       req.session.save(function () { }) // Requires Callback
       res.send({
         status: 200,
-        url: `http://localhost/?token=${token}`
+        url: `http://localhost/@me`
       })
     } else {
       res.send({

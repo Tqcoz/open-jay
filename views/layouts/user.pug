@@ -1,31 +1,12 @@
 extends basic.pug
 block body
-    #top-bar
-        h3 Logged in as 
-            kbd(onclick="copy(this)") #{user.username}##{user.discriminator}
     aside#guilds-bar
         a#home-button(href="/@me")
             <i class="fas fa-home home"></i>
             .horizontal-line-separator
         .guilds
-            each guild in user.guilds
-                p guild.name
-            if user.guilds == 0 || undefined
-                <i class="fas fa-plus add-server"></i>  
+            #guilds
+            <i class="fas fa-plus add-server" onclick="guildAdd()"></i>  
     #direct-messages
-        h2 Friends
-        each dm in user
-            s
-    script.
-        function copy(f){
-            document.querySelector('kbd').style.background = "lightblue";
-            document.querySelector('kbd').style.color = "white";
-            var r = document.createRange();
-            r.selectNode(f);
-            window.getSelection().removeAllRanges();
-            window.getSelection().addRange(r);
-            document.execCommand('copy');
-            window.getSelection().removeAllRanges();
-            setTimeout(()=>{document.querySelector('kbd').style.background = "inherit";document.querySelector('kbd').style.color = "inherit"},300)
-            console.log(f.innerText)
-        }
+    block modal
+        

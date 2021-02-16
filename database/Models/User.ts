@@ -1,6 +1,6 @@
-import { Schema, Model, model as mModel } from "mongoose"
-import { User } from '../interfaces/User';
-const mongoose = require('mongoose')
+import { Schema, Model, model as mModel, Mongoose } from "mongoose"
+import { User } from '../../interfaces/User';
+const mongoose:Mongoose = require('mongoose')
 const model:Model<User> = mModel('User', new Schema({
     id: String,
     username: String,
@@ -8,7 +8,10 @@ const model:Model<User> = mModel('User', new Schema({
     avatar: String,
     friends: Array,
     email: String,
-    guilds: Array,
+    guilds: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Guilds'
+    }],
     password: String,
     token: String
 }))
